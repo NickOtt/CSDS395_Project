@@ -1,7 +1,22 @@
 {% extends "ecommerce_site/navbar.html" %}
 {% block title %}
-Sample Title
+Home Page
 {% endblock %}
 {% block content %}
-Doot doot
+    {% if post_list %}
+        <table class="post_list">
+            <tbody>
+            {% for post in post_list %}
+                <div>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.price }}</td>
+                    <td>{{ post.seller }}</td>
+                    <td>{{ post.description }}</td>
+                </div>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No posts currently.</p>
+    {% endif %}
 {% endblock %}
