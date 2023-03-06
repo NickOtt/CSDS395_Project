@@ -1,13 +1,3 @@
-.message {
-    font-weight: 600;
-    color: blue;
-}
-
-.message_list th,td {
-    text-align: left;
-    padding-right: 15px;
-}
-
 .navbar {
     background-color: lightslategray;
     font-size: 1em;
@@ -34,8 +24,4 @@
 .body-content {
     padding: 5px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-input[name=message] {
-    width: 80%;
 }
