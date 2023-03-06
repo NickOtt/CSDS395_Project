@@ -1,10 +1,11 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
 def home(request):
     return render(request, "ecommerce_site/home.html")
 
-def listings(request):
-    return render(request, "app/listings.html")
+def post(request):
+    return render(request, "app/post.html")
 
 def messages(request):
     return render(request, "app/messages.html")
