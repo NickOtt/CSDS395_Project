@@ -1,0 +1,16 @@
+{% extends "ecommerce_site/navbar.html" %}
+{% block title %}
+Post Successful
+{% endblock %}
+{% block content %}
+  <h1>Success!</h1>
+  <p>You've successfully listed '{{ listing.title }}' for sale</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit">Return to home</button>
+  </form>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit">Make another listing</button>
+  </form>
+{% endblock %}
