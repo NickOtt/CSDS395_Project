@@ -6,16 +6,17 @@ Home Page
     <h1>Welcome to CampusBay</h1>
     {% if post_list %}
         <table class="post_list">
-            <tbody>
+
             {% for post in post_list %}
+            <tbody>
                 <div>
                     <td>{{ post.title }}</td>
                     <td>{{ post.price }}</td>
                     <td>{{ post.seller }}</td>
                     <td>{{ post.time_listed }}</td>
                 </div>
-            {% endfor %}
             </tbody>
+            {% endfor %}
         </table>
     {% else %}
         <p>No posts currently.</p>

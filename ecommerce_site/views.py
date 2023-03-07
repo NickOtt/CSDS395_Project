@@ -26,6 +26,7 @@ def post(request):
             listing.price = request.POST['price']
             listing.seller = request.POST['seller']
             listing.time_listed = datetime.now()
+            listing.image = request.FILES['image']
             listing.save()
             return redirect("post_success", pk=listing.pk)
         else:        
