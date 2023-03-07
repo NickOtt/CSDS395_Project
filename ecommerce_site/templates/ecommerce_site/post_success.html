@@ -5,12 +5,8 @@ Post Successful
 {% block content %}
   <h1>Success!</h1>
   <p>You've successfully listed '{{ listing.title }}' for sale</p>
-  <form method="POST">
-    {% csrf_token %}
-    <button type="submit">Return to home</button>
-  </form>
-  <form method="POST">
-    {% csrf_token %}
-    <button type="submit">Make another listing</button>
+  <form method="get">
+    <button type="submit" formaction="{% url 'home' %}">Return to home</button>
+    <button type="submit" formaction="{% url 'post' %}">Make another listing</button>
   </form>
 {% endblock %}

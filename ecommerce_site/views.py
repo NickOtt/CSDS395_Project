@@ -31,8 +31,14 @@ def post(request):
     
     
 def post_success(request, pk):
-    listing = Listing.objects.get(pk=pk)
-    return render(request, 'ecommerce_site/post_success.html', {'listing' : listing})
+
+    if request.method == "POST":
+        return redirect("home")
+    else:
+        listing = Listing.objects.get(pk=pk)
+        return render(request, 'ecommerce_site/post_success.html', {'listing' : listing})
+
+
 
 def messages(request):
     return render(request, "ecommerce_site/messages.html")
