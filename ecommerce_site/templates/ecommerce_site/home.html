@@ -10,8 +10,7 @@ Home Page
             {% for post in post_list %}
             <tbody>
                 <div>
-                    <td> {{ post.seller }} wants to sell <em>{{ post.title }}</em> for <strong>{{ post.price }} dubloons</strong></td>
-                    <img src="{{ post.image.url }}" alt="image not found" style="width:25%">
+                    <td><img src="{{ post.image.url }}" alt="image not found" style="width:10%"> {{ post.seller }} wants to sell <em>{{ post.title }}</em> for <strong>{{ post.price }} dubloons</strong></td>
                 </div>
             </tbody>
             {% endfor %}
