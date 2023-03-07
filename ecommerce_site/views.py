@@ -15,7 +15,7 @@ class HomeListView(ListView):
         return context
     
 def post(request):
-    form = MakeListingForm(request.POST or None)
+    form = MakeListingForm(request.POST or None, request.FILES or None)
 
     if request.method == "POST":
         s = form.errors
