@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import FileResponse, HttpResponse
 from django.shortcuts import redirect
 from ecommerce_site.forms import MakeListingForm
 from ecommerce_site.models import Listing
@@ -18,6 +18,8 @@ def post(request):
     form = MakeListingForm(request.POST or None)
 
     if request.method == "POST":
+        s = form.errors
+
         if form.is_valid():
             listing = form.save(commit=False)
             listing.title = request.POST['title']
@@ -26,6 +28,9 @@ def post(request):
             listing.time_listed = datetime.now()
             listing.save()
             return redirect("post_success", pk=listing.pk)
+        else:        
+            return render(request, "ecommerce_site/post.html", {'error': "Bad input!"})
+
     else:
         return render(request, "ecommerce_site/post.html", {"form": form})
     
