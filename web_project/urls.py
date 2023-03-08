@@ -18,7 +18,11 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static 
 
+from cas import views as casviews
+
 urlpatterns = [
     path("", include("ecommerce_site.urls")),
+    path("login/", casviews.login, name='cas_login'),
+    path("logout/", casviews.logout, name='cas_logout'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
