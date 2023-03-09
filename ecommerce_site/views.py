@@ -2,9 +2,13 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import FileResponse, HttpResponse
 from django.shortcuts import redirect
+from django.views.generic import ListView
+from django.contrib import auth
+from django.urls import reverse
+from django.views.generic import View
+
 from ecommerce_site.forms import MakeListingForm
 from ecommerce_site.models import Listing
-from django.views.generic import ListView
 
 class HomeListView(ListView):
     """Renders the home page, with a list of all messages."""
@@ -13,6 +17,13 @@ class HomeListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(HomeListView, self).get_context_data(**kwargs)
         return context
+
+class LogoutView(View):
+    """Redirects to home page after logout."""
+    
+    def get(self, request, *args, **kwargs):
+        auth.logout(request)
+        return redirect("home")
     
 def post(request):
     form = MakeListingForm(request.POST or None, request.FILES or None)
@@ -44,10 +55,8 @@ def post_success(request, pk):
         listing = Listing.objects.get(pk=pk)
         return render(request, 'ecommerce_site/post_success.html', {'listing' : listing})
 
-
+def account(request):
+    return render(request, "ecommerce_site/account.html")
 
 def messages(request):
     return render(request, "ecommerce_site/messages.html")
-
-def login(request):
-    return render(request, "ecommerce_site/login.html")
