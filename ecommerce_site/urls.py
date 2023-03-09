@@ -14,5 +14,6 @@ urlpatterns = [
     path("messages/", views.messages, name="messages"),
     path('post_success/<int:pk>', views.post_success, name='post_success'),
     path("account/", views.account, name="account"),
-    path("logout/", views.LogoutView.as_view(), name="logout")
+    #path("login/", views.LoginView.as_view(), name="login"),
+    path("logout/", views.LogoutView.as_view(), name="logout"),
 ]

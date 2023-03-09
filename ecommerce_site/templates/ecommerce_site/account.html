@@ -7,11 +7,14 @@ Account Info
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <h1>{{ error }}</h1>
+    <label for="seller">Username:</label>
+    <input type="text" id="username" name="username" value={{request.user.username}} readonly><br><br>
     <label for="seller">First Name:</label>
-    <input type="text" id="first_name" name="first_name"><br><br>
+    <input type="text" id="first_name" name="first_name" value={{request.user.first_name}}><br><br>
     <label for="title">Last Name:</label>
-    <input type="text" id="last_name" name="last_name"><br> <br>
+    <input type="text" id="last_name" name="last_name"  value={{request.user.last_name}}><br> <br>
     <label for="price">Email:</label>
-    <input type="text" id="email" name="email"><br><br>
+    <input type="text" id="email" name="email"  value={{request.user.email}}><br><br>
+    <button type="submit">Submit Changes</button>
   </form>
 {% endblock %}
