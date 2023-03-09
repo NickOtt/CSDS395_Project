@@ -12,6 +12,8 @@ urlpatterns = [
     path("", home_list_view, name="home"),
     path("post/", views.post, name="post"),
     path("messages/", views.messages, name="messages"),
-    path("login/", views.login, name="login"),
     path('post_success/<int:pk>', views.post_success, name='post_success'),
+    path("account/", views.account, name="account"),
+    #path("login/", views.LoginView.as_view(), name="login"),
+    path("logout/", views.LogoutView.as_view(), name="logout"),
 ]

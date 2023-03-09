@@ -8,7 +8,7 @@ Post an Item
     {% csrf_token %}
     <h1>{{ error }}</h1>
     <label for="seller">Your name:</label>
-    <input type="text" id="seller" name="seller" required><br><br>
+    <input type="text" id="seller" name="seller" value={{request.user.first_name}} required><br><br>
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" required><br> <br>
     <label for="price">Price:</label>
