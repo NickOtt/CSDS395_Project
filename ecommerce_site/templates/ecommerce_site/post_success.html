@@ -3,7 +3,7 @@
 Post Successful
 {% endblock %}
 {% block content %}
-  <h1>Success!</h1>
+  <h1 class="home-title">Success!</h1>
   <p>You've successfully listed '{{ listing.title }}' for sale</p>
   <form method="get">
     <button type="submit" formaction="{% url 'home' %}">Return to home</button>

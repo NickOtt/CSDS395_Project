@@ -3,14 +3,27 @@
 Home Page
 {% endblock %}
 {% block content %}
-    <h1>Welcome to CampusBay</h1>
+    <div>
+    <h1 class="home-title">Welcome to CampusBay</h1>
     {% if post_list %}
         <table class="post_list">
 
             {% for post in post_list %}
-            <tbody>
+            <tbody class="post-body">
                 <div>
-                    <td><img src="{{ post.image.url }}" alt="image not found" style="width:10%"> {{ post.seller }} wants to sell <em>{{ post.title }}</em> for <strong>{{ post.price }} dubloons</strong></td>
+                    <td>
+                        <div class="post-title">
+                            <strong>{{ post.title }}</strong> for Sale
+                        </div>
+                        <div class="post-img-box">
+                            <img class="post-img" src="{{ post.image.url }}" alt="image not found" > 
+                        </div>
+                        <div class="post-info">
+                            
+                            <div>Price: <strong>{{ post.price }} dubloons</strong></div>
+                            <div>Seller Info: {{ post.seller }}</div>
+                        </div>
+                    </td>
                 </div>
             </tbody>
             {% endfor %}
@@ -18,4 +31,5 @@ Home Page
     {% else %}
         <p>No posts currently.</p>
     {% endif %}
+    
 {% endblock %}

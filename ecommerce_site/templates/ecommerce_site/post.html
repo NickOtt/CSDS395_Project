@@ -3,7 +3,7 @@
 Post an Item
 {% endblock %}
 {% block content %}
-  <h1>List an item for sale</h1>
+  <h1 class="home-title">List an item for sale</h1>
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <h1>{{ error }}</h1>

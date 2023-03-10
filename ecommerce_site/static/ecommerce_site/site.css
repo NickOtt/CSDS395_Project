@@ -1,9 +1,24 @@
+body {
+    background-color: #F7F6F3;
+}
+
+/*NAVBAR*/
+
 .navbar {
-    background-color: lightslategray;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    left: 0;
+    padding: 15px 20px;
+    display: inline-block;
+
+    width: 100%;
+    background-color: #30323D;
     font-size: 1em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: white;
-    padding: 8px 5px 8px 5px;
+    color: #F7F6F3;
+    
+
+    margin: 0px;
 }
 
 .navbar a {
@@ -23,14 +38,73 @@
 
 .navbar-end {
     float: right;
+    padding-right: 30px;
 }
 
 .body-content {
     padding: 5px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
 
-.post_list th,td {
+/* HOME PAGE / POSTS */
+
+.home-title {
+    
+    padding-top: 40px;
+    padding-left: 40px;
+    
+}
+
+
+.post_list {
     text-align: left;
     padding-right: 15px;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+}
+
+
+.post-body th,td {
+    background-color: #F7F6F3;
+    margin: auto;
+    width: 100%;
+    border-radius: 5px;
+    overflow: auto;
+    margin-bottom: 10px;
+    display: inline-block;
+    box-shadow: 0 0 5px 2px gray;
+}
+
+.post-title {
+    font-size: x-large;
+    background-color: #5C80BC;
+    
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-radius: 5px 5px 0px 0px;
+
+    display: inline-block;
+}
+
+.post-img-box {
+    margin: auto;
+    width: 70%;
+}
+
+.post-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    object-fit: contain;
+}
+
+.post-info {
+    background-color: #AABBD8;
+    padding: 10px;
+    font-size: large;
+    border-radius: 0 0 5px 5px;
 }
