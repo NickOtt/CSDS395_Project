@@ -10,8 +10,11 @@
 <body>
 <div class="navbar">
     <a href="{% url 'home' %}" class="navbar-brand">Home</a>
-    <a href="{% url 'post' %}" class="navbar-item">Make a Post</a>
-    <a href="{% url 'messages' %}" class="navbar-item">Messages</a>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'post' %}" class="navbar-item">Make a Post</a>
+        <a href="{% url 'messages' %}" class="navbar-item">Messages</a>
+    {% endif %}
+
     <div class="navbar-end">
         {% if request.user.is_authenticated %}
             <a href="{% url 'account' %}" class="navbar-item-end">Account</a>
@@ -26,9 +29,9 @@
     {% block content %}
     {% endblock %}
     <hr/>
-    <footer>
+    <!--<footer>
         <p>&copy; 2023</p>
-    </footer>
+    </footer>-->
 </div>
 </body>
 </html>

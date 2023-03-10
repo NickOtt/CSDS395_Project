@@ -32,6 +32,10 @@ class LoginView(View):
     
 def post(request):
     form = MakeListingForm(request.POST or None, request.FILES or None)
+    
+    # Redirect user to home page if not logged in
+    if not request.user.is_authenticated:
+        return redirect("home")
 
     if request.method == "POST":
         s = form.errors
@@ -53,6 +57,9 @@ def post(request):
     
     
 def post_success(request, pk):
+    # Redirect user to home page if not logged in
+    if not request.user.is_authenticated:
+        return redirect("home")
 
     if request.method == "POST":
         return redirect("home")
@@ -62,6 +69,10 @@ def post_success(request, pk):
 
 def account(request):
     form = AccountChangeForm(request.POST or None)
+    
+    # Redirect user to home page if not logged in
+    if not request.user.is_authenticated:
+        return redirect("home")
 
     if request.method == "POST":
         s = form.errors
@@ -80,4 +91,8 @@ def account(request):
         return render(request, "ecommerce_site/account.html", {"form": form})
 
 def messages(request):
+    # Redirect user to home page if not logged in
+    if not request.user.is_authenticated:
+        return redirect("home")
+    
     return render(request, "ecommerce_site/messages.html")
