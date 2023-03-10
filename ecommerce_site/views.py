@@ -39,8 +39,11 @@ def post(request):
         if form.is_valid():
             listing = form.save(commit=False)
             listing.title = request.POST['title']
+            listing.description = request.POST['description']
+            listing.buysell = request.POST['buysell']
             listing.price = request.POST['price']
             listing.seller = request.POST['seller']
+            listing.payment = request.POST['payment']
             listing.time_listed = datetime.now()
             listing.image = request.FILES['image']
             listing.save()

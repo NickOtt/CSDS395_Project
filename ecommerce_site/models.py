@@ -3,7 +3,10 @@ from django.utils import timezone
 
 class Listing(models.Model):
     title = models.CharField(max_length=255)
+    description = models.CharField(max_length=5000, default="")
+    buysell = models.CharField(max_length=255, default="Buying")
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    payment = models.CharField(max_length=255, default="DogeCoin")
     time_listed = models.DateTimeField(auto_now_add=True)
     seller = models.CharField(max_length=255)
     image = models.ImageField(upload_to="pics")
