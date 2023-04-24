@@ -3,7 +3,7 @@ from ecommerce_site import views
 from ecommerce_site.models import Listing
 
 home_list_view = views.HomeListView.as_view(
-    queryset= Listing.objects.order_by("-time_listed")[:3],  # :5 limits the results to the five most recent
+    queryset= Listing.objects.order_by("-time_listed")[:10],  # :5 limits the results to the five most recent
     context_object_name="post_list",
     template_name="ecommerce_site/home.html",
 )

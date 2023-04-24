@@ -4,12 +4,21 @@ Home Page
 {% endblock %}
 {% block content %}
     <div>
+    <div>
     <h1 class="home-title">Welcome to CampusBay</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>{{ error }}</h1>
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="query" name="query" required style="margin-right: 5px;"><br><br>
+            <button type="submit">Search!</button>
+        </div>
+      </form>
+    </div>
     {% if post_list %}
         <table class="post_list">
-
             {% for post in post_list %}
-            <tbody class="post-body">
+            <div class="post-body">
                 <div>
                     <td>
                         <div class="post-title">
@@ -19,13 +28,12 @@ Home Page
                             <img class="post-img" src="{{ post.image.url }}" alt="image not found" > 
                         </div>
                         <div class="post-info">
-                            
                             <div>Price: <strong>{{ post.price }} dubloons</strong></div>
                             <div>Seller Info: {{ post.seller }}</div>
                         </div>
                     </td>
                 </div>
-            </tbody>
+            </div>
             {% endfor %}
         </table>
     {% else %}
