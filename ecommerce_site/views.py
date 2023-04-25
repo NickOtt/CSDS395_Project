@@ -29,7 +29,18 @@ class LoginView(View):
     
     def get(self, request, *args, **kwargs):
         return redirect("home")
-    
+
+def home(request):
+
+
+    query = ""
+    if request.method == "POST":
+        query = request.POST['query'] 
+    data = Listing.objects.filter(title__icontains=query).order_by("-time_listed")[:5]
+
+    return render(request, "ecommerce_site/home.html", {"post_list": data})
+
+
 def post(request):
     form = MakeListingForm(request.POST or None, request.FILES or None)
     
@@ -54,7 +65,7 @@ def post(request):
 
     else:
         return render(request, "ecommerce_site/post.html", {"form": form})
-    
+  
     
 def post_success(request, pk):
     # Redirect user to home page if not logged in
