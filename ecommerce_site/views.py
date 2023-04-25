@@ -38,7 +38,10 @@ def home(request):
         query = request.POST['query'] 
     data = Listing.objects.filter(title__icontains=query).order_by("-time_listed")[:5]
 
-    return render(request, "ecommerce_site/home.html", {"post_list": data})
+    if query != "":
+        return render(request, "ecommerce_site/home.html", {"post_list": data, "search_term": query})
+    else:
+        return render(request, "ecommerce_site/home.html", {"post_list": data})
 
 
 def post(request):

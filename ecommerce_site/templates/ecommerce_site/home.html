@@ -7,12 +7,16 @@ Home Page
     <div>
     <div>
     <h1 class="home-title">Welcome to CampusBay</h1>
+
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h1>{{ error }}</h1>
         <div style="display: flex; align-items: center;">
             <input type="text" id="query" name="query" style="margin-right: 5px;"><br><br>
             <button type="submit">Search!</button>
+            {% if search_term %}
+            <h1 style="margin-left: 150px;">Showing listings including '{{ search_term }}'</h1>
+            {% endif %}
         </div>
       </form>
     </div>
