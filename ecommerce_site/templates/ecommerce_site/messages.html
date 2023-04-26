@@ -5,26 +5,22 @@ Messages
 {% block content %}
     <br>
     {% if chat_list %}
-    <table class="chat_list">
+    <div class="chat_list">
+
         {% for chat in chat_list %}
-        <div class="chat-body">
-            <div>
-                <td>
-                    <div class="from-user">
-                        {% if from_user.first_name %}
-                            <strong> {{from_user.first_name}} {{from_user.last_name}} </strong>
-                        {% else %}
-                            <strong> {{from_user.username}} </strong>
-                        {% endif %}
-                    </div>
-                    <div class="message-title">
-                       
-                    </div>
-                </td>
+
+            <a href=" url 'detail' from_user.username ">
+            <div class="from-user">
+                {% if from_user.first_name %}
+                    <strong> {{from_user.first_name}} {{from_user.last_name}} </strong>
+                {% else %}
+                    <strong> {{from_user.username}} </strong>
+                {% endif %}
             </div>
-        </div>
+
         {% endfor %}
-    </table>
+
+    </div>
     {% else %}
     <p>No messages.</p>
     {% endif %}

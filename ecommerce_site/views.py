@@ -5,9 +5,12 @@ from django.views.generic import ListView
 from django.contrib import auth
 from django.views.generic import View
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
-from ecommerce_site.forms import MakeListingForm, AccountChangeForm
-from ecommerce_site.models import Listing
+from ecommerce_site.forms import MakeListingForm, AccountChangeForm, MessageForm
+from ecommerce_site.models import Listing, Message, Chat, User
+
+import json
 
 class HomeListView(ListView):
     """Renders the home page, with a list of all messages."""
@@ -109,4 +112,45 @@ def messages(request):
     if not request.user.is_authenticated:
         return redirect("home")
     
-    return render(request, "ecommerce_site/messages.html")
+    user = request.user.user
+    chats = user.chats.all()
+    context= {"user": user, "chats": chats}
+    
+    return render(request, "ecommerce_site/messages.html", context)
+
+def detail_messages(request, pk):
+    chat = Chat.objects.get(profile_id=pk)
+    user = request.user.user
+    chatter = Chat.objects.get(id=chat.user.username)
+    messages = Message.objects.all()
+    form = MessageForm()
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.from_user = user
+            message.to_user = chatter
+            message.save()
+            return redirect("detail_messages", pk=chatter.user.username)
+    context = {"chat": chat, "form": form, "user": user, "chatter":chatter, "messages":messages}
+    return render(request, "ecommerce_site/detail_messages.html", context)
+
+def sent_messages(request, pk):
+    user = request.user.user
+    chat = Chat.objects.get(profile_id=pk)
+    chatter = User.objects.get(id=chat.user.username)
+    data = json.loads(request.body)
+    new_message = data["msg"]
+    new_message_body = Message.objects.create(message=new_message, from_user=user, to_user=chatter)
+    print(new_message)
+    return JsonResponse(new_message_body.message, safe=False)
+    
+def received_messages(request, pk):
+    user = request.user.user
+    chat = Chat.objects.get(profile_id=pk)
+    chatter = User.objects.get(id=chat.user.username)
+    message_arr = []
+    message_list = Message.objects.filter(from_user=chatter, to_user=user)
+    for message in message_list:
+        message_arr.append(message.message)
+    return JsonResponse(message_arr, safe=False)
