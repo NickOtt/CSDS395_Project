@@ -21,3 +21,14 @@ class User(models.Model):
     def __str__(self):
         """Returns a string representation of a User."""
         return "TODO"
+    
+class Message(models.Model):
+    to_user = models.CharField(max_length=255)
+    from_user = models.CharField(max_length=255)
+    message = models.CharField(max_length=500)
+    time = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        """Returns a string representation of a Message."""
+        return "TODO"
+    

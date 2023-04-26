@@ -1,0 +1,15 @@
+{% extends "ecommerce_site/navbar.html" %}
+{% block title %}
+Home Page
+{% endblock %}
+{% block content %}
+    <br>
+    <h1> Log In </h1>
+	<form method="post">
+		{% csrf_token %}
+		{{form.as_p}}
+		<br>
+		<button type="submit">Login</button>
+	</form>
+
+{% endblock %}

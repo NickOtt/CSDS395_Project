@@ -28,7 +28,7 @@ class LoginView(View):
     """Redirects to home page after login."""
     
     def get(self, request, *args, **kwargs):
-        return redirect("home")
+        return render(request, 'ecommerce_site/login.html')
 
 def home(request):
 

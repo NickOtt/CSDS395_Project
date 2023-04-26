@@ -20,7 +20,8 @@
             <a href="{% url 'account' %}" class="navbar-item-end">Account</a>
             <a href="{% url 'cas_logout' %}" class="navbar-item">Logout</a>
         {% else %}
-            <a href="{% url 'cas_login' %}" class="navbar-item">Login</a>
+            <!--<a href="{% url 'cas_login' %}" class="navbar-item">Login</a>-->
+            <a href="{% url 'login' %}" class="navbar-item">Login</a>
         {% endif %}
     </div>
 </div>
