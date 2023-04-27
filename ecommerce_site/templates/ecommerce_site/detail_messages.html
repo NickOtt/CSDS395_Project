@@ -5,6 +5,7 @@ Messages
 {% block content %}
 
     <br>
+    <br>
     <div class="chat-header">
         <h3> {{chat.profile.user.first_name}} {{chat.profile.user.last_name}} </h3>
     </div>
@@ -20,11 +21,11 @@ Messages
             {% for message in message_list %}
                 {% if message.from_user == user and message.to_user == profile %}
                     <div class="message-sent">
-                        {{message}}
+                        {{user.user.first_name}} {{user.user.last_name}}: {{message}}
                     </div>
                 {% elif message.from_user == profile and message.to_user == user %}
                     <div class="message-received">
-                        {{message}}
+                        {{profile.user.first_name}} {{profile.user.last_name}}: {{message}}
                     </div>
                 {% endif %}
             {% endfor %}
@@ -91,8 +92,9 @@ Messages
             });
         } 
     
-        setInterval(receiveMessages(), 2000)
+        setInterval(receiveMessages, 3000)
     
+        let counter = {{num}}
         function receiveMessages(){
     
             let url = "{% url 'rec_msg' chat.profile.id %}"
@@ -105,13 +107,18 @@ Messages
         
                 else{
                     let lastMsg = data[data.length-1]
-                    let chat_body = document.getElementById('chat-body')
-                    let chatMessageBox = document.createElement("div")
-                    
-                    chatMessageBox.classList.add("message-received")
-                    chatMessageBox.innerText = lastMsg
-                    chat_body.append(chatMessageBox)
-                    document.getElementById("id_body").value=""
+
+                    if(counter == data.length){
+                    }else {
+                        let chat_body = document.getElementById('chat-body')
+                        let chatMessageBox = document.createElement("div")
+                        
+                        chatMessageBox.classList.add("message-received")
+                        chatMessageBox.innerText = lastMsg
+                        chat_body.append(chatMessageBox)
+                        document.getElementById("id_body").value=""
+                        console.log(lastMsg)
+                    }
                 }
             })
             .catch((error) => {

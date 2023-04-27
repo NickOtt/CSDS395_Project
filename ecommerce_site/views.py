@@ -136,6 +136,8 @@ def detail_messages(request, pk):
         profile.save()  
         
     message_list = Message.objects.all()
+    recent_messages = Message.objects.filter(from_user=profile, to_user=user, seen=False)
+    recent_messages.update(seen=True)
     form = MessageForm()
     if request.method == "POST":
         form = MessageForm(request.POST)
@@ -145,7 +147,7 @@ def detail_messages(request, pk):
             message.to_user = profile
             message.save()
             return redirect("detail_messages", pk=chat.profile.id)
-    context = {"chat": chat, "form": form, "user": user, "profile":profile, "message_list":message_list}
+    context = {"chat": chat, "form": form, "user": user, "profile":profile, "message_list":message_list, "num": recent_messages.count()}
     return render(request, "ecommerce_site/detail_messages.html", context)
 
 def sent_messages(request, pk):
@@ -154,7 +156,7 @@ def sent_messages(request, pk):
     profile = Profile.objects.get(id=chat.profile.id)
     data = json.loads(request.body)
     new_message = data["msg"]
-    new_message_body = Message.objects.create(message=new_message, from_user=user, to_user=profile)
+    new_message_body = Message.objects.create(message=new_message, from_user=user, to_user=profile, seen=False)
     print(new_message)
     return JsonResponse(new_message_body.message, safe=False)
     
@@ -163,7 +165,8 @@ def received_messages(request, pk):
     chat = Chat.objects.get(profile_id=pk)
     profile = Profile.objects.get(id=chat.profile.id)
     message_arr = []
-    message_list = Message.objects.filter(from_user=profile, to_user=user)
+    message_list = Message.objects.filter(from_user=profile, to_user=user, seen=False)
     for message in message_list:
         message_arr.append(message.message)
+    message_list.update(seen=True)
     return JsonResponse(message_arr, safe=False)
