@@ -5,6 +5,9 @@ Messages
 {% block content %}
 
     <br>
+    <div class="chat-header">
+        <h3> {{chat.profile.user.first_name}} {{chat.profile.user.last_name}} </h3>
+    </div>
     <div class="chat-container">
         <div class="chat-identity">
             {% if from_user.first_name %}
@@ -65,7 +68,7 @@ Messages
     
             const data = { msg: chatMessage };
             
-            let url = "{% url 'sent_msg' from_user.username %}"
+            let url = "{% url 'sent_msg' chat.profile.id %}"
     
             fetch(url, {
                 method: 'POST', // or 'PUT'
@@ -96,7 +99,7 @@ Messages
         let counter = {{num}}
         function receiveMessages(){
     
-            let url = "{% url 'rec_msg' from_user.username %}"
+            let url = "{% url 'rec_msg' chat.profile.id %}"
             fetch(url)
             .then(response => response.json())
             .then(data => {

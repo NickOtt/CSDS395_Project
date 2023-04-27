@@ -9,7 +9,7 @@ Messages
 
         {% for chat in chat_list %}
 
-            <a href=" url 'detail' from_user.username ">
+            <a href=" {% url 'detail_messages' chat.profile.id %} ">
             <div class="from-user">
                 {% if from_user.first_name %}
                     <strong> {{from_user.first_name}} {{from_user.last_name}} </strong>

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 
 from ecommerce_site.forms import MakeListingForm, AccountChangeForm, MessageForm
-from ecommerce_site.models import Listing, Message, Chat, User
+from ecommerce_site.models import Listing, Message, Chat, Profile
 
 import json
 
@@ -62,6 +62,7 @@ def post(request):
             listing.title = request.POST['title']
             listing.price = request.POST['price']
             listing.seller = request.POST['seller']
+            listing.seller_user = request.user
             listing.time_listed = datetime.now()
             listing.image = request.FILES['image']
             listing.save()
@@ -112,16 +113,19 @@ def messages(request):
     if not request.user.is_authenticated:
         return redirect("home")
     
-    user = request.user.user
+    user = request.user.profile
     chats = user.chats.all()
     context= {"user": user, "chats": chats}
     
     return render(request, "ecommerce_site/messages.html", context)
 
 def detail_messages(request, pk):
+    if not Chat.objects.filter(profile_id=pk).exists():
+        Chat.objects.create(profile_id=pk)
+        
     chat = Chat.objects.get(profile_id=pk)
-    user = request.user.user
-    chatter = Chat.objects.get(id=chat.user.username)
+    user = request.user.profile
+    profile = Profile.objects.get(id=chat.profile.id)
     messages = Message.objects.all()
     form = MessageForm()
     if request.method == "POST":
@@ -129,28 +133,28 @@ def detail_messages(request, pk):
         if form.is_valid():
             message = form.save(commit=False)
             message.from_user = user
-            message.to_user = chatter
+            message.to_user = profile
             message.save()
-            return redirect("detail_messages", pk=chatter.user.username)
-    context = {"chat": chat, "form": form, "user": user, "chatter":chatter, "messages":messages}
+            return redirect("detail_messages", pk=chat.profile.id)
+    context = {"chat": chat, "form": form, "user": user, "chatter":profile, "messages":messages}
     return render(request, "ecommerce_site/detail_messages.html", context)
 
 def sent_messages(request, pk):
-    user = request.user.user
+    user = request.user.profile
     chat = Chat.objects.get(profile_id=pk)
-    chatter = User.objects.get(id=chat.user.username)
+    profile = Profile.objects.get(id=chat.profile.id)
     data = json.loads(request.body)
     new_message = data["msg"]
-    new_message_body = Message.objects.create(message=new_message, from_user=user, to_user=chatter)
+    new_message_body = Message.objects.create(message=new_message, from_user=user, to_user=profile)
     print(new_message)
     return JsonResponse(new_message_body.message, safe=False)
     
 def received_messages(request, pk):
-    user = request.user.user
+    user = request.user.profile
     chat = Chat.objects.get(profile_id=pk)
-    chatter = User.objects.get(id=chat.user.username)
+    profile = Profile.objects.get(id=chat.profile.id)
     message_arr = []
-    message_list = Message.objects.filter(from_user=chatter, to_user=user)
+    message_list = Message.objects.filter(from_user=profile, to_user=user)
     for message in message_list:
         message_arr.append(message.message)
     return JsonResponse(message_arr, safe=False)
