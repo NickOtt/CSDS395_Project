@@ -115,3 +115,24 @@ body {
     font-size: large;
     border-radius: 0 0 5px 5px;
 }
+
+.message-received, .message-sent{
+    width: 200px;
+    height: auto;
+    font-size: 14px;
+    background-color: slateblue;
+    color: white;
+    margin-left: auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding:10px 10px;
+    border-radius: 10px;
+}
+
+.message-sent{
+    background-color: rebeccapurple;
+    color: white;
+    float: left;
+   
+}

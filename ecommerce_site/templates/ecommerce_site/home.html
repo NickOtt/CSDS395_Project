@@ -34,7 +34,7 @@ Home Page
                         </div>
                         <div class="post-info">
                             <div>Price: <strong>{{ post.price }} dubloons</strong></div>
-                            <div>Seller Info: {{ post.seller.first_name }}</div>
+                            <div>Seller Info: {{ post.seller_user.first_name }}</div>
                         </div>
                         <button onclick="location.href=' {% url 'detail_messages' post.seller_user_id %}' ">Message User</button>
                     </td>

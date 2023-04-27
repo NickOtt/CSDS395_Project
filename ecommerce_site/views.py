@@ -114,19 +114,28 @@ def messages(request):
         return redirect("home")
     
     user = request.user.profile
-    chats = user.chats.all()
-    context= {"user": user, "chats": chats}
+    chat_list = user.chats.all()
+    context= {"user": user, "chat_list": chat_list}
     
     return render(request, "ecommerce_site/messages.html", context)
 
 def detail_messages(request, pk):
+    user = request.user.profile
+    
     if not Chat.objects.filter(profile_id=pk).exists():
-        Chat.objects.create(profile_id=pk)
+        new_chat = Chat.objects.create(profile_id=pk)
+        user.chats.add(new_chat)
+        user.save()
         
     chat = Chat.objects.get(profile_id=pk)
-    user = request.user.profile
     profile = Profile.objects.get(id=chat.profile.id)
-    messages = Message.objects.all()
+        
+    if not Chat.objects.filter(profile_id=user.id).exists():
+        new_chat2 = Chat.objects.create(profile_id=user.id)
+        profile.chats.add(new_chat2)
+        profile.save()  
+        
+    message_list = Message.objects.all()
     form = MessageForm()
     if request.method == "POST":
         form = MessageForm(request.POST)
@@ -136,7 +145,7 @@ def detail_messages(request, pk):
             message.to_user = profile
             message.save()
             return redirect("detail_messages", pk=chat.profile.id)
-    context = {"chat": chat, "form": form, "user": user, "chatter":profile, "messages":messages}
+    context = {"chat": chat, "form": form, "user": user, "profile":profile, "message_list":message_list}
     return render(request, "ecommerce_site/detail_messages.html", context)
 
 def sent_messages(request, pk):

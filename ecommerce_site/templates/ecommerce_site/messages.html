@@ -4,6 +4,7 @@ Messages
 {% endblock %}
 {% block content %}
     <br>
+    <br>
     {% if chat_list %}
     <div class="chat_list">
 
@@ -11,10 +12,10 @@ Messages
 
             <a href=" {% url 'detail_messages' chat.profile.id %} ">
             <div class="from-user">
-                {% if from_user.first_name %}
-                    <strong> {{from_user.first_name}} {{from_user.last_name}} </strong>
+                {% if chat.profile.user.first_name %}
+                    <strong> {{chat.profile.user.first_name}} {{chat.profile.user.last_name}} </strong>
                 {% else %}
-                    <strong> {{from_user.username}} </strong>
+                    <strong> {{chat.profile.user.username}} </strong>
                 {% endif %}
             </div>
 

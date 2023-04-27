@@ -18,15 +18,15 @@ Messages
         </div>
         <div class="chat-body" id="chat-body">
             {% for message in message_list %}
-            {% if message.from_user == user and message.to_user == from_user %}
-                <div class="message-sent">
-                    {{message}}
-                </div>
-            {% elif message.from_user == from_user and message.to_user == user %}
-                <div class="message-received">
-                    {{message}}
-                </div>
-            {% endif %}
+                {% if message.from_user == user and message.to_user == profile %}
+                    <div class="message-sent">
+                        {{message}}
+                    </div>
+                {% elif message.from_user == profile and message.to_user == user %}
+                    <div class="message-received">
+                        {{message}}
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
         <form action="" id="messageform" method="POST">
@@ -64,7 +64,6 @@ Messages
         function sendChat(e){
             e.preventDefault()
             let chatMessage= document.getElementById("id_body").value
-            console.log(chatMessage)
     
             const data = { msg: chatMessage };
             
@@ -80,7 +79,6 @@ Messages
             })
             .then(response => response.json())
             .then(data => {
-            console.log('Success:', data);
             let chat_body = document.getElementById('chat-body')
             let chatMessageBox = document.createElement("div")
             chatMessageBox.classList.add("message-sent")
@@ -89,14 +87,12 @@ Messages
             document.getElementById("id_body").value=""
             })
             .catch((error) => {
-            console.error('Error:', error);
+                console.error('Error:', error);
             });
         } 
     
-        setInterval(receiveMessages, 3000)
+        setInterval(receiveMessages(), 2000)
     
-    
-        let counter = {{num}}
         function receiveMessages(){
     
             let url = "{% url 'rec_msg' chat.profile.id %}"
@@ -109,23 +105,14 @@ Messages
         
                 else{
                     let lastMsg = data[data.length-1]
-        
-                    if(counter == data.length){
-                        console.log("there is no new chat")
-                    } else{
-                        let chat_body = document.getElementById('chat-body')
-                        let chatMessageBox = document.createElement("div")
-                        
-                        chatMessageBox.classList.add("message-received")
-                        chatMessageBox.innerText = lastMsg
-                        chat_body.append(chatMessageBox)
-                        document.getElementById("id_body").value=""
-                        console.log()
-                    }
-        
+                    let chat_body = document.getElementById('chat-body')
+                    let chatMessageBox = document.createElement("div")
+                    
+                    chatMessageBox.classList.add("message-received")
+                    chatMessageBox.innerText = lastMsg
+                    chat_body.append(chatMessageBox)
+                    document.getElementById("id_body").value=""
                 }
-                
-                counter = data.length
             })
             .catch((error) => {
                 console.error('Error:', error);
