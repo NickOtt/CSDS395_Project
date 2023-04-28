@@ -3,12 +3,13 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import ListView
 from django.contrib import auth
+from django.contrib import messages as msgs
 from django.views.generic import View
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 
 from ecommerce_site.forms import MakeListingForm, AccountChangeForm, MessageForm, RegisterForm
-from ecommerce_site.models import Listing, Message, Chat, Profile
+from ecommerce_site.models import Listing, Message, Chat, Profile, Report
 
 import json
 
@@ -37,13 +38,22 @@ def home(request):
     query = ""
     if request.method == "POST":
         query = request.POST['query'] 
-    data = Listing.objects.filter(title__icontains=query).order_by("-time_listed")[:5]
+    data = Listing.objects.filter(title__icontains=query).order_by("-time_listed")[:20]
 
     if query != "":
         return render(request, "ecommerce_site/home.html", {"post_list": data, "search_term": query})
     else:
         return render(request, "ecommerce_site/home.html", {"post_list": data})
 
+def report(request, pk):
+    if not request.user.is_authenticated:
+        return redirect("home")
+    
+    Report.objects.create(listing=Listing.objects.get(id=pk))
+    
+    # msgs.info(request, "Listing has been reported") to be implemented later
+    
+    return redirect("home")
 
 def post(request):
     form = MakeListingForm(request.POST or None, request.FILES or None)

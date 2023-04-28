@@ -38,3 +38,9 @@ class Message(models.Model):
     def __str__(self):
         return self.message
     
+class Report(models.Model):
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="listing")
+    
+    def __str__(self):
+        return self.listing.title
+    

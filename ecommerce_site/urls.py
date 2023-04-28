@@ -4,6 +4,7 @@ from ecommerce_site import views
 urlpatterns = [
     path("", views.home, name="home"),
     path("post/", views.post, name="post"),
+    path("report/<str:pk>", views.report, name="report"),
     path("messages/", views.messages, name="messages"),
     path('chat/<str:pk>', views.detail_messages, name="detail_messages"),
     path('sent_msg/<str:pk>', views.sent_messages, name = "sent_msg"),
