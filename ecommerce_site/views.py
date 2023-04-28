@@ -83,6 +83,7 @@ def post_success(request, pk):
         listing = Listing.objects.get(pk=pk)
         return render(request, 'ecommerce_site/post_success.html', {'listing' : listing})
 
+
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -98,12 +99,17 @@ def register(request):
     
     return render(request, "registration/register.html", {"form": form})
 
+def delete_listing(request, pk):
+    Listing.objects.get(pk=pk).delete()
+    return redirect("account")
+
 def account(request):
     form = AccountChangeForm(request.POST or None)
     
     # Redirect user to home page if not logged in
     if not request.user.is_authenticated:
         return redirect("home")
+    listings = Listing.objects.filter(seller_user = request.user)
 
     if request.method == "POST":
         s = form.errors
@@ -114,12 +120,12 @@ def account(request):
             user.last_name = request.POST['last_name']
             user.email = request.POST['email']
             user.save()
-            return redirect("account")
+            return redirect("account", {'post_list' : listings})
         else:        
-            return render(request, "ecommerce_site/account.html", {'error': "Bad input!"})
+            return render(request, "ecommerce_site/account.html", {'error': "Bad input!", 'post_list' : listings})
 
     else:
-        return render(request, "ecommerce_site/account.html", {"form": form})
+        return render(request, "ecommerce_site/account.html", {"form": form, 'post_list' : listings})
 
 def messages(request):
     # Redirect user to home page if not logged in

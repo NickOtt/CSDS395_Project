@@ -15,6 +15,32 @@ Account Info
     <input type="text" id="last_name" name="last_name"  value={{request.user.last_name}}><br> <br>
     <label for="price">Email:</label>
     <input type="text" id="email" name="email"  value={{request.user.email}}><br><br>
-    <button type="submit">Submit Changes</button>
+    <button type="submit", id="change_info">Submit Changes</button>
   </form>
+  {% if post_list %}
+  <table class="post_list">
+    <h1 class="home-title">Listed Items</h1>
+    {% for post in post_list %}
+    <form action="{% url 'delete_listing' post.pk %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="post-body">
+          <div>
+              <td>
+                  <div class="post-title">
+                      <strong>{{ post.title }}</strong> for Sale
+                  </div>
+                  <div class="post-img-box">
+                      <img class="post-img" src="{{ post.image.url }}" alt="image not found" > 
+                  </div>
+                  <div class="post-info">
+                      <div>Price: <strong>{{ post.price }} dubloons</strong></div>
+                  </div>
+                  <button type="submit"> Delete Listing! </button>
+              </td>
+          </div>
+      </div>
+      {% endfor %}
+    </form>
+  </table>
+  {% endif %}
 {% endblock %}

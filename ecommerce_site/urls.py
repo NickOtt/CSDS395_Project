@@ -11,6 +11,8 @@ urlpatterns = [
     path('post_success/<int:pk>', views.post_success, name='post_success'),
     path('register/', views.register, name="register"),
     path("account/", views.account, name="account"),
+    path("delete_listing/<int:pk>", views.delete_listing, name="delete_listing"),
+    
     path("", include("django.contrib.auth.urls")),
     #path("login/", views.LoginView.as_view(), name="login"),
     #path("logout/", views.LogoutView.as_view(), name="logout"),
