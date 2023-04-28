@@ -1,0 +1,15 @@
+{% extends "ecommerce_site/navbar.html" %}
+{% block title %}
+Register
+{% endblock %}
+{% block content %}
+    <br>
+    <h1> Register </h1>
+	<form method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<br>
+		<button type="submit">Register</button>
+	</form>
+
+{% endblock %}
