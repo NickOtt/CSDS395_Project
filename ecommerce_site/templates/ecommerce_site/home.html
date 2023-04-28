@@ -5,21 +5,23 @@ Home Page
 {% block content %}
 
     <div>
-    <div>
+    
     <h1 class="home-title">Welcome to CampusBay</h1>
 
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <h1>{{ error }}</h1>
-        <div style="display: flex; align-items: center;">
-            <input type="text" id="query" name="query" style="margin-right: 5px;"><br><br>
-            <button type="submit">Search!</button>
-            {% if search_term %}
-            <h1 style="margin-left: 150px;">Showing listings including '{{ search_term }}'</h1>
-            {% endif %}
-        </div>
-      </form>
+    <div  style="padding-left: 25%;">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>{{ error }}</h1>
+            <div>
+                <input type="text" id="query" name="query" style="margin-right: 5px; width: 70%">
+                <button type="submit">Search!</button>
+                {% if search_term %}
+                <h1 style="margin-left: 150px;">Showing listings including '{{ search_term }}'</h1>
+                {% endif %}
+            </div>
+        </form>
     </div>
+    
     {% if post_list %}
         <table class="post_list">
             {% for post in post_list %}
@@ -35,8 +37,8 @@ Home Page
                         <div class="post-info">
                             <div>Price: <strong>{{ post.price }} dubloons</strong></div>
                             <div>Seller Info: {{ post.seller_user.first_name }}</div>
+                            <button onclick="location.href=' {% url 'detail_messages' post.seller_user_id %}' ">Message User</button>
                         </div>
-                        <button onclick="location.href=' {% url 'detail_messages' post.seller_user_id %}' ">Message User</button>
                     </td>
                 </div>
             </div>
