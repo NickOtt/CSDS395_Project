@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 
 from ecommerce_site.forms import MakeListingForm, AccountChangeForm, MessageForm
-from ecommerce_site.models import Listing, Message, Chat, Profile
+from ecommerce_site.models import Listing, Message, Chat, Profile, Tag
 
 import json
 
@@ -56,6 +56,7 @@ def post(request):
 
     if request.method == "POST":
         s = form.errors
+        print(s)
 
         if form.is_valid():
             listing = form.save(commit=False)
@@ -65,6 +66,33 @@ def post(request):
             listing.seller_user = request.user
             listing.time_listed = datetime.now()
             listing.image = request.FILES['image']
+            listing.buyorsell = request.POST['buyorsell']
+
+            if 'tag1' != None:
+                new_tag = Tag.objects.create(tag='tag1')
+                new_tag.listings.add(listing)
+                listing.tags.add(new_tag)
+
+            if 'tag2' != None:
+                new_tag = Tag.objects.create(tag='tag2')
+                new_tag.listings.add(listing)
+                listing.tags.add(new_tag)
+
+            if 'tag3' != None:
+                new_tag = Tag.objects.create(tag='tag3')
+                new_tag.listings.add(listing)
+                listing.tags.add(new_tag)
+
+            if 'tag4' != None:
+                new_tag = Tag.objects.create(tag='tag4')
+                new_tag.listings.add(listing)
+                listing.tags.add(new_tag)
+
+            if 'tag5' != None:
+                new_tag = Tag.objects.create(tag='tag5')
+                new_tag.listings.add(listing)
+                listing.tags.add(new_tag)
+
             listing.save()
             return redirect("post_success", pk=listing.pk)
         else:        
@@ -133,7 +161,7 @@ def detail_messages(request, pk):
     if not Chat.objects.filter(profile_id=user.id).exists():
         new_chat2 = Chat.objects.create(profile_id=user.id)
         profile.chats.add(new_chat2)
-        profile.save()  
+        profile.save()
         
     message_list = Message.objects.all()
     recent_messages = Message.objects.filter(from_user=profile, to_user=user, seen=False)

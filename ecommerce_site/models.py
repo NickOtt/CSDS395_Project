@@ -12,14 +12,23 @@ class Profile(models.Model):
 class Listing(models.Model):
     title = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    buyorsell = models.CharField(max_length=5, default="sell")
     time_listed = models.DateTimeField(auto_now_add=True)
     seller = models.CharField(max_length=255)
     seller_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="seller")
     image = models.ImageField(upload_to="pics")
+    tags = models.ManyToManyField('Tag', related_name="tags")
     
     def __str__(self):
         """Returns a string representation of a Listing."""
         return self.title
+    
+class Tag(models.Model):
+    tag = models.CharField(max_length=30)
+
+    def __str__(self):
+        """Returns a string representation of a Listing."""
+        return self.tag
     
 class Chat(models.Model):
     profile = models.OneToOneField(Profile, null=True, on_delete=models.CASCADE)
