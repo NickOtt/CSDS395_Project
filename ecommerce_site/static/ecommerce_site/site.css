@@ -63,6 +63,37 @@ body {
     
 }
 
+.three-dots:after {
+    color: #444;
+    content: '\2807';
+    padding: 0 5px;
+}
+
+.dropdown {
+    position: absolute;
+    background-color: #d55047;
+    color: white;
+    outline: none;
+    opacity: 0;
+    max-height: 0;
+    padding: 2px;
+    font-size: 0.75em;
+}
+
+.dropdown-container{
+    margin-left: auto;
+    float: right;
+}
+  
+.dropdown-container:focus {
+    outline: none;
+}
+  
+.dropdown-container:focus .dropdown {
+    opacity: 1;
+    z-index: 100;
+    max-height: 100vh;
+}
 
 .post_list {
     text-align: left;
