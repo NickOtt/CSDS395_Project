@@ -1,6 +1,5 @@
 from django.urls import path, include
 from ecommerce_site import views
-from ecommerce_site.models import Listing
 
 urlpatterns = [
     path("", views.home, name="home"),
@@ -10,6 +9,7 @@ urlpatterns = [
     path('sent_msg/<str:pk>', views.sent_messages, name = "sent_msg"),
     path('rec_msg/<str:pk>', views.received_messages, name = "rec_msg"),
     path('post_success/<int:pk>', views.post_success, name='post_success'),
+    path('register/', views.register, name="register"),
     path("account/", views.account, name="account"),
     path("", include("django.contrib.auth.urls")),
     #path("login/", views.LoginView.as_view(), name="login"),

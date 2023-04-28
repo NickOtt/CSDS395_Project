@@ -7,7 +7,7 @@ from django.views.generic import View
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 
-from ecommerce_site.forms import MakeListingForm, AccountChangeForm, MessageForm
+from ecommerce_site.forms import MakeListingForm, AccountChangeForm, MessageForm, RegisterForm
 from ecommerce_site.models import Listing, Message, Chat, Profile
 
 import json
@@ -34,8 +34,6 @@ class LoginView(View):
         return render(request, 'ecommerce_site/login.html')
 
 def home(request):
-
-
     query = ""
     if request.method == "POST":
         query = request.POST['query'] 
@@ -85,6 +83,21 @@ def post_success(request, pk):
         listing = Listing.objects.get(pk=pk)
         return render(request, 'ecommerce_site/post_success.html', {'listing' : listing})
 
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            form.save()
+            
+            Profile.objects.create(user_id = User.objects.get(username=form.data["username"]).id)
+            
+        return redirect("login")
+    else:
+        form = RegisterForm()
+    
+    return render(request, "registration/register.html", {"form": form})
+
 def account(request):
     form = AccountChangeForm(request.POST or None)
     
@@ -127,6 +140,11 @@ def detail_messages(request, pk):
         user.chats.add(new_chat)
         user.save()
         
+    if not user.chats.filter(profile_id=pk):
+        existing_chat = Chat.objects.get(profile_id=pk)
+        user.chats.add(existing_chat)
+        user.save()
+        
     chat = Chat.objects.get(profile_id=pk)
     profile = Profile.objects.get(id=chat.profile.id)
         
@@ -134,6 +152,11 @@ def detail_messages(request, pk):
         new_chat2 = Chat.objects.create(profile_id=user.id)
         profile.chats.add(new_chat2)
         profile.save()  
+        
+    if not profile.chats.filter(profile_id=user.id):
+        existing_chat = Chat.objects.get(profile_id=user.id)
+        profile.chats.add(existing_chat)
+        profile.save()
         
     message_list = Message.objects.all()
     recent_messages = Message.objects.filter(from_user=profile, to_user=user, seen=False)

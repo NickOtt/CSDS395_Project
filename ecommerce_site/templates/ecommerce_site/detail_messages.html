@@ -6,36 +6,41 @@ Messages
 
     <br>
     <br>
-    <div class="chat-header">
-        <h3> {{chat.profile.user.first_name}} {{chat.profile.user.last_name}} </h3>
-    </div>
     <div class="chat-container">
-        <div class="chat-identity">
-            {% if from_user.first_name %}
-                <h3> {{from_user.first_name}} {{from_user.last_name}} </h3>
-            {% else %}
-                <h3> {{from_user.username}} </h3>
-            {% endif %}
+        <div class="chat-header">
+            <h3> {{chat.profile.user.first_name}} {{chat.profile.user.last_name}} </h3>
         </div>
-        <div class="chat-body" id="chat-body">
-            {% for message in message_list %}
-                {% if message.from_user == user and message.to_user == profile %}
-                    <div class="message-sent">
-                        {{user.user.first_name}} {{user.user.last_name}}: {{message}}
-                    </div>
-                {% elif message.from_user == profile and message.to_user == user %}
-                    <div class="message-received">
-                        {{profile.user.first_name}} {{profile.user.last_name}}: {{message}}
-                    </div>
+        <div class="chat-subcontainer">
+            <div class="chat-identity">
+                {% if from_user.first_name %}
+                    <h3> {{from_user.first_name}} {{from_user.last_name}} </h3>
+                {% else %}
+                    <h3> {{from_user.username}} </h3>
                 {% endif %}
-            {% endfor %}
+            </div>
+            <div class="chat-body" id="chat-body">
+                {% for message in message_list %}
+                    {% if message.from_user == user and message.to_user == profile %}
+                        <div class="message-sent">
+                            {{user.user.first_name}} {{user.user.last_name}}: {{message}}
+                        </div>
+                    {% elif message.from_user == profile and message.to_user == user %}
+                        <div class="message-received">
+                            {{profile.user.first_name}} {{profile.user.last_name}}: {{message}}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <hr/>
+            
+            <form action="" id="messageform" method="POST">
+                {% csrf_token %}
+
+                {{form.body}}
+
+                <button type="submit">Send</button>
         </div>
-        <form action="" id="messageform" method="POST">
-            {% csrf_token %}
-
-            {{form.body}}
-
-            <button type="submit">Send</button>
     </div>
 
     <script>
