@@ -5,7 +5,7 @@ from ecommerce_site.models import Listing, User, Message
 class MakeListingForm(forms.ModelForm):
     class Meta:
         model = Listing
-        fields = ("title", "buyorsell", "price", "seller", "image", "tag1", "tag2", "tag3", "tag4", "tag5",)   # NOTE: the trailing comma is required 
+        fields = ("seller", "title", "buyorsell", "price", "tags", "image",)   # NOTE: the trailing comma is required 
         
 class AccountChangeForm(forms.ModelForm):
     class Meta:
