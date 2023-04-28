@@ -1,6 +1,15 @@
 from django import forms
 from django.forms import ModelForm
-from ecommerce_site.models import Listing, User, Message
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from ecommerce_site.models import Listing, Message
+
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ["username", "password1", "password2", "email", "first_name", "last_name"]
 
 class MakeListingForm(forms.ModelForm):
     class Meta:

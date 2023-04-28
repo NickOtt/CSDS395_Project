@@ -12,7 +12,7 @@ Messages
 
         {% for chat in chat_list %}
 
-            <a href=" {% url 'detail_messages' chat.profile.id %} ">
+            <a class="ignorehref" href=" {% url 'detail_messages' chat.profile.id %} ">
                 <div class="from-user">
                     {% if chat.profile.user.first_name %}
                         <strong> {{chat.profile.user.first_name}} {{chat.profile.user.last_name}} </strong>

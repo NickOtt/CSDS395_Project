@@ -1,16 +1,15 @@
 {% extends "ecommerce_site/navbar.html" %}
 {% block title %}
-Home Page
+Register
 {% endblock %}
 {% block content %}
     <br>
-    <h1> Log In </h1>
+    <h1> Register </h1>
 	<form method="POST">
 		{% csrf_token %}
 		{{form.as_p}}
 		<br>
-		<button type="submit">Login</button>
+		<button type="submit">Register</button>
 	</form>
-	<a href="{% url 'register' %} ">Register</a>
 
 {% endblock %}
