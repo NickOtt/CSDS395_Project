@@ -30,6 +30,12 @@ Home Page
                     <td>
                         <div class="post-title">
                             <strong>{{ post.title }}</strong> for Sale
+                            <div class="dropdown-container" tabindex="-1">
+                                <div class="three-dots"></div>
+                                <div class="dropdown">
+                                    <a href=" {% url 'report' post.id %} " class="ignorehref">Report</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="post-img-box">
                             <img class="post-img" src="{{ post.image.url }}" alt="image not found" > 
