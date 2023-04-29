@@ -50,6 +50,8 @@ def home(request):
 def post(request):
     form = MakeListingForm(request.POST or None, request.FILES or None)
     
+    tags = Tag.objects.all()
+    
     # Redirect user to home page if not logged in
     if not request.user.is_authenticated:
         return redirect("home")
@@ -62,19 +64,20 @@ def post(request):
             listing = form.save(commit=False)
             listing.title = request.POST['title']
             listing.price = request.POST['price']
-            listing.seller = request.POST['seller']
+            listing.seller = request.user.first_name
             listing.seller_user = request.user
             listing.time_listed = datetime.now()
             listing.image = request.FILES['image']
             listing.buyorsell = request.POST['buyorsell']
-            listing.tags = request.POST['tags']
             listing.save()
+            
+            listing.tags.set(request.POST['tags'])
             return redirect("post_success", pk=listing.pk)
         else:        
-            return render(request, "ecommerce_site/post.html", {'error': "Bad input!"})
+            return render(request, "ecommerce_site/post.html", {'error': "Bad input!", "tags": tags })
 
     else:
-        return render(request, "ecommerce_site/post.html", {"form": form})
+        return render(request, "ecommerce_site/post.html", {"form": form, "tags": tags})
   
     
 def post_success(request, pk):
