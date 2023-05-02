@@ -43,7 +43,9 @@ Home Page
                         <div class="post-info">
                             <div>Price: <strong>${{ post.price }}</strong></div>
                             <div>Seller Info: {{ post.seller_user.first_name }}</div>
-                            <button onclick="location.href=' {% url 'detail_messages' post.seller_user_id %}' ">Message User</button>
+                            {% if request.user.is_authenticated %}
+                                <button onclick="location.href=' {% url 'detail_messages' post.seller_user_id %}' ">Message User</button>
+                            {% endif %}
                         </div>
                     </td>
                 </div>
