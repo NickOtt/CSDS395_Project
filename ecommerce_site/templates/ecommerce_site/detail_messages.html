@@ -22,11 +22,11 @@ Messages
                 {% for message in message_list %}
                     {% if message.from_user == user and message.to_user == profile %}
                         <div class="message-sent">
-                            {{user.user.first_name}} {{user.user.last_name}}: {{message}}
+                            {{message}}
                         </div>
                     {% elif message.from_user == profile and message.to_user == user %}
                         <div class="message-received">
-                            {{profile.user.first_name}} {{profile.user.last_name}}: {{message}}
+                            {{message}}
                         </div>
                     {% endif %}
                 {% endfor %}

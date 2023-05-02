@@ -41,7 +41,7 @@ Home Page
                             <img class="post-img" src="{{ post.image.url }}" alt="image not found" > 
                         </div>
                         <div class="post-info">
-                            <div>Price: <strong>{{ post.price }} dubloons</strong></div>
+                            <div>Price: <strong>${{ post.price }}</strong></div>
                             <div>Seller Info: {{ post.seller_user.first_name }}</div>
                             <button onclick="location.href=' {% url 'detail_messages' post.seller_user_id %}' ">Message User</button>
                         </div>
