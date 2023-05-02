@@ -1,0 +1,47 @@
+{% extends "ecommerce_site/navbar.html" %}
+{% block title %}
+Account Info
+{% endblock %}
+{% block content %}
+  <h1 class="home-title">Account Information</h1>
+  <div style="padding-left: 80px;">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h1>{{ error }}</h1>
+    <label for="seller">Username:</label>
+    <input type="text" id="username" name="username" value={{request.user.username}} readonly><br><br>
+    <label for="seller">First Name:</label>
+    <input type="text" id="first_name" name="first_name" value={{request.user.first_name}}><br><br>
+    <label for="title">Last Name:</label>
+    <input type="text" id="last_name" name="last_name"  value={{request.user.last_name}}><br> <br>
+    <label for="price">Email:</label>
+    <input type="text" id="email" name="email"  value={{request.user.email}}><br><br>
+    <button type="submit">Submit Changes</button>
+  </form>
+  {% if post_list %}
+  <table class="post_list">
+    <h1 class="home-title">Listed Items</h1>
+    {% for post in post_list %}
+    <form action="{% url 'delete_listing' post.pk %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="post-body">
+          <div>
+              <td>
+                  <div class="post-title">
+                      <strong>{{ post.title }}</strong> for Sale
+                  </div>
+                  <div class="post-img-box">
+                      <img class="post-img" src="{{ post.image.url }}" alt="image not found" > 
+                  </div>
+                  <div class="post-info">
+                      <div>Price: <strong>{{ post.price }} dubloons</strong></div>
+                  </div>
+                  <button type="submit"> Delete Listing! </button>
+              </td>
+          </div>
+      </div>
+      {% endfor %}
+    </form>
+  </table>
+  {% endif %}
+{% endblock %}

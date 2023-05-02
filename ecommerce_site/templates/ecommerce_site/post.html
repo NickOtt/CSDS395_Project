@@ -1,0 +1,22 @@
+{% extends "ecommerce_site/navbar.html" %}
+{% block title %}
+Post an Item
+{% endblock %}
+{% block content %}
+  <h1 class="home-title">List an item for sale</h1>
+  <div style="padding-left: 80px;">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <h1>{{ error }}</h1>
+      <label for="seller">Your name:</label>
+      <input type="text" id="seller" name="seller" value={{request.user.first_name}} required><br><br>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required><br> <br>
+      <label for="price">Price:</label>
+      <input type="decimal" id="price" name="price" required><br><br>
+      <label for="image">Upload an image:</label>
+      <input type="file" id="image" name="image" required><br><br>
+      <button type="submit">Make Listing</button>
+    </form>
+  </div>
+{% endblock %}

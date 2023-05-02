@@ -1,0 +1,57 @@
+{% extends "ecommerce_site/navbar.html" %}
+{% block title %}
+Home Page
+{% endblock %}
+{% block content %}
+
+    <div>
+    
+    <h1 class="home-title">Welcome to CampusBay</h1>
+
+    <div  style="padding-left: 25%;">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>{{ error }}</h1>
+            <div>
+                <input type="text" id="query" name="query" style="margin-right: 5px; width: 70%">
+                <button type="submit">Search!</button>
+                {% if search_term %}
+                <h1 style="margin-left: 150px;">Showing listings including '{{ search_term }}'</h1>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    
+    {% if post_list %}
+        <table class="post_list">
+            {% for post in post_list %}
+            <div class="post-body">
+                <div>
+                    <td>
+                        <div class="post-title">
+                            <strong>{{ post.title }}</strong> for Sale
+                            <div class="dropdown-container" tabindex="-1">
+                                <div class="three-dots"></div>
+                                <div class="dropdown">
+                                    <a href=" {% url 'report' post.id %} " class="ignorehref">Report</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-img-box">
+                            <img class="post-img" src="{{ post.image.url }}" alt="image not found" > 
+                        </div>
+                        <div class="post-info">
+                            <div>Price: <strong>{{ post.price }} dubloons</strong></div>
+                            <div>Seller Info: {{ post.seller_user.first_name }}</div>
+                            <button onclick="location.href=' {% url 'detail_messages' post.seller_user_id %}' ">Message User</button>
+                        </div>
+                    </td>
+                </div>
+            </div>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No posts currently.</p>
+    {% endif %}
+    
+{% endblock %}

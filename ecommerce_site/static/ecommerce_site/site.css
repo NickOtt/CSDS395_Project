@@ -1,0 +1,230 @@
+body {
+    background-color: #F7F6F3;
+}
+
+/*NAVBAR*/
+
+.navbar {
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    left: 0;
+    padding: 15px 20px;
+    display: inline-block;
+
+    width: 100%;
+    background-color: #30323D;
+    font-size: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #F7F6F3;
+    
+
+    margin: 0px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar-brand {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.navbar-item {
+    font-variant: small-caps;
+    margin-left: 30px;
+}
+
+.navbar-end {
+    float: right;
+    padding-right: 30px;
+}
+
+.body-content {
+    padding: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+/* HOME PAGE / POSTS */
+
+.home-title {
+    
+    padding-top: 40px;
+    padding-left: 40px;
+    
+}
+
+.for_sale-title {
+    
+    padding-top: 40px;
+    padding-left: 40px;
+    
+}
+
+.three-dots:after {
+    color: #444;
+    content: '\2807';
+    padding: 0 5px;
+}
+
+.dropdown {
+    position: absolute;
+    background-color: #d55047;
+    color: white;
+    outline: none;
+    opacity: 0;
+    max-height: 0;
+    padding: 2px;
+    font-size: 0.75em;
+}
+
+.dropdown-container{
+    margin-left: auto;
+    float: right;
+}
+  
+.dropdown-container:focus {
+    outline: none;
+}
+  
+.dropdown-container:focus .dropdown {
+    opacity: 1;
+    z-index: 100;
+    max-height: 100vh;
+}
+
+.post_list {
+    text-align: left;
+    padding-right: 15px;
+    margin: auto;
+    width: 80%;
+    padding: 10px;
+}
+
+
+.post-body th,td {
+    background-color: #F7F6F3;
+    margin: auto;
+    width: 100%;
+    border-radius: 5px;
+    overflow: auto;
+    margin-bottom: 10px;
+    display: inline-block;
+    box-shadow: 0 0 5px 2px gray;
+}
+
+.post-title {
+    font-size: x-large;
+    background-color: #5C80BC;
+    
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-radius: 5px 5px 0px 0px;
+
+    display: inline-block;
+}
+
+.post-img-box {
+    margin: auto;
+    width: 100%;
+}
+
+.post-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    object-fit: contain;
+}
+
+.post-info {
+    background-color: #AABBD8;
+    padding: 10px;
+    font-size: large;
+    border-radius: 0 0 5px 5px;
+}
+
+/* Messages */
+.chat-list{
+    width: 100%;
+    height: 380px;
+    overflow: auto;
+}
+
+.from-user{
+    height: 80px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 0px 10px;
+}
+
+.ignorehref{
+    color: inherit;
+    text-decoration: none; 
+}
+
+/* Detail Messages */
+.chat-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+}
+
+.chat-subcontainer{
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+}
+
+.chat-body{
+    width: 100%;
+    height: 280px;
+    overflow: auto;
+}
+
+.message-received{
+    width: 200px;
+    height: auto;
+    font-size: 14px;
+    background-color: slateblue;
+    color: white;
+    margin-left: auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding:10px 10px;
+    border-radius: 10px;
+}
+
+.message-sent{
+    width: 200px;
+    height: auto;
+    font-size: 14px;
+    background-color: rebeccapurple;
+    color: white;
+    margin-right: auto;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding:10px 10px;
+    border-radius: 10px;
+}
+
+#messageform{
+    height: auto;
+    flex-grow: 2;
+}
