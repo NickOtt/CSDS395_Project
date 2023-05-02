@@ -71,6 +71,7 @@ def post(request):
             listing.price = request.POST['price']
             listing.seller = request.POST['seller']
             listing.seller_user = request.user
+            listing.buyorsell = 'sell'
             listing.time_listed = datetime.now()
             listing.image = request.FILES['image']
             listing.save()
@@ -130,7 +131,7 @@ def account(request):
             user.last_name = request.POST['last_name']
             user.email = request.POST['email']
             user.save()
-            return redirect("account", {'post_list' : listings})
+            return redirect("account")
         else:        
             return render(request, "ecommerce_site/account.html", {'error': "Bad input!", 'post_list' : listings})
 
